@@ -181,54 +181,6 @@ function showMessage(message) {
 }
 
 
-// ========================================
-// EXTRA TASKS
-// ========================================
-
-function buildExtraTaskSection() {
-
-    const checklistPage = document.getElementById("checklist");
-
-    const extraCard = document.createElement("div");
-
-    extraCard.className = "section-card";
-
-    extraCard.innerHTML = `
-
-        <h3>Additional Tasks</h3>
-
-        <p>Add tasks that are unique to today.</p>
-
-        <div style="display:flex; gap:10px; margin-bottom:20px;">
-
-            <input
-                type="text"
-                id="newTaskInput"
-                placeholder="Enter additional task..."
-                style="flex:1;"
-            >
-
-            <button id="addTaskButton">
-
-                Add Task
-
-            </button>
-
-        </div>
-
-        <div id="extraTasksContainer"></div>
-
-    `;
-
-    checklistPage.appendChild(extraCard);
-
-    document
-        .getElementById("addTaskButton")
-        .addEventListener("click", addExtraTask);
-
-    loadExtraTasks();
-
-}
 
 // ========================================
 
