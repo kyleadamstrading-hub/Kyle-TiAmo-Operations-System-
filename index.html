@@ -1,129 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spa Ops Manager</title>
-  <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Spa Operations Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
 <div class="app">
 
-  <aside class="sidebar">
-    <div class="logo">
-      <h2>🌿 Spa Ops</h2>
-      <p>Operations Manager</p>
-    </div>
+    <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
 
-    <nav>
-      <button class="nav-btn active" data-page="dashboard">🏠 Dashboard</button>
-      <button class="nav-btn" data-page="checklist">✅ Daily Checklist</button>
-      <button class="nav-btn" data-page="inspection">🛏 Room Inspection</button>
-      <button class="nav-btn" data-page="consumables">📦 Consumables</button>
-      <button class="nav-btn" data-page="notes">📝 Notes</button>
-      <button class="nav-btn" data-page="reports">📁 Saved Reports</button>
-      <button class="nav-btn" data-page="settings">⚙ Settings</button>
-    </nav>
-  </aside>
+    <aside class="sidebar">
 
-  <main class="content">
+        <div class="logo">
 
-    <header class="topbar">
-      <div>
-        <h1>Spa Operations Manager</h1>
-        <p id="todayDate"></p>
-      </div>
+            <h2>🌿 Spa Ops</h2>
 
-      <div class="progress-card">
-        <h3>Today's Progress</h3>
-        <div class="progress">
-          <div id="progressBar"></div>
-        </div>
-        <span id="progressText">0%</span>
-      </div>
-    </header>
+            <p>Operations Manager</p>
 
-    <section id="dashboard" class="page active-page">
-
-      <div class="cards">
-
-        <div class="card">
-          <h3>Daily Checklist</h3>
-          <p>Morning & Afternoon Tasks</p>
-          <button onclick="showPage('checklist')">Open</button>
         </div>
 
-        <div class="card">
-          <h3>Room Inspection</h3>
-          <p>Inspect Standard & Executive Suites</p>
-          <button onclick="showPage('inspection')">Open</button>
-        </div>
+        <nav>
 
-        <div class="card">
-          <h3>Consumables</h3>
-          <p>Monitor Stock Levels</p>
-          <button onclick="showPage('consumables')">Open</button>
-        </div>
+            <button class="nav-btn active" data-page="dashboard">
+                🏠 Dashboard
+            </button>
 
-        <div class="card">
-          <h3>Notes</h3>
-          <p>Quick Manager Notes</p>
-          <button onclick="showPage('notes')">Open</button>
-        </div>
+            <button class="nav-btn" data-page="checklist">
+                ✅ Daily Checklist
+            </button>
 
-        <div class="card">
-          <h3>Reports</h3>
-          <p>Previous PDFs & Records</p>
-          <button onclick="showPage('reports')">Open</button>
-        </div>
+            <button class="nav-btn" data-page="inspection">
+                🛏 Room Inspection
+            </button>
 
-      </div>
+            <button class="nav-btn" data-page="consumables">
+                📦 Consumables
+            </button>
 
-    </section>
+            <button class="nav-btn" data-page="notes">
+                📝 Notes
+            </button>
 
-    <section id="checklist" class="page">
-      <h2>Daily Checklist</h2>
-      <p>This module will be built next.</p>
-    </section>
+            <button class="nav-btn" data-page="reports">
+                📁 Reports
+            </button>
 
-    <section id="inspection" class="page">
-      <h2>Room Inspection</h2>
-      <button id="startInspection">Start Inspection</button>
+            <button class="nav-btn" data-page="settings">
+                ⚙ Settings
+            </button>
 
-      <div id="inspectionChoice" style="display:none;">
-        <button>Standard Massage Suites</button>
-        <button>Executive Massage Suites</button>
-      </div>
-    </section>
+        </nav>
 
-    <section id="consumables" class="page">
-      <h2>Consumables</h2>
-      <p>Coming in Phase 2.</p>
-    </section>
+    </aside>
 
-    <section id="notes" class="page">
-      <h2>Notes</h2>
-      <textarea rows="12" placeholder="Write notes here..."></textarea>
-    </section>
+    <!-- ========================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ========================= -->
 
-    <section id="reports" class="page">
-      <h2>Saved Reports</h2>
-      <p>Reports will appear here.</p>
-    </section>
+    <main class="content">
 
-    <section id="settings" class="page">
-      <h2>Settings</h2>
-      <p>Firebase connection will be configured later.</p>
-    </section>
+        <header class="topbar">
 
-  </main>
+            <div>
+
+                <h1>Spa Operations Manager</h1>
+
+                <p id="todayDate"></p>
+
+            </div>
+
+            <div class="progress-card">
+
+                <h3>Today's Progress</h3>
+
+                <div class="progress">
+
+                    <div id="progressBar"></div>
+
+                </div>
+
+                <span id="progressText">0%</span>
+
+            </div>
+
+        </header>
+
+        <!-- ========================= -->
+        <!-- DASHBOARD -->
+        <!-- Built by dashboard.js -->
+        <!-- ========================= -->
+
+        <section id="dashboard" class="page active-page">
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- DAILY CHECKLIST -->
+        <!-- ========================= -->
+
+        <section id="checklist" class="page">
+
+            <h2>Daily Checklist</h2>
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- ROOM INSPECTION -->
+        <!-- ========================= -->
+
+        <section id="inspection" class="page">
+
+            <h2>Room Inspection</h2>
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- CONSUMABLES -->
+        <!-- ========================= -->
+
+        <section id="consumables" class="page">
+
+            <h2>Consumables</h2>
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- NOTES -->
+        <!-- ========================= -->
+
+        <section id="notes" class="page">
+
+            <h2>Notes</h2>
+
+            <textarea
+                id="managerNotes"
+                rows="12"
+                placeholder="Write notes here..."
+            ></textarea>
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- REPORTS -->
+        <!-- ========================= -->
+
+        <section id="reports" class="page">
+
+            <h2>Saved Reports</h2>
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- SETTINGS -->
+        <!-- ========================= -->
+
+        <section id="settings" class="page">
+
+            <h2>Settings</h2>
+
+        </section>
+
+    </main>
 
 </div>
 
-<script src="pdf.js"></script>
-<script src="firebase.js"></script>
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
 <script src="app.js"></script>
+
+<script src="dashboard.js"></script>
+
+<script src="checklist.js"></script>
+
+<script src="inspection.js"></script>
+
+<script src="consumables.js"></script>
+
+<script src="reports.js"></script>
+
+<script src="staff.js"></script>
+
+<script src="settings.js"></script>
+
+<script src="firebase.js"></script>
+
+<script src="pdf.js"></script>
 
 </body>
 </html>
