@@ -150,6 +150,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     initialiseChecklist();
 
+    addChecklistButtons();
+
 });
 // ========================================
 // CHECKLIST EVENTS
@@ -255,6 +257,8 @@ function buildExtraTaskSection() {
 
     const checklistPage = document.getElementById("checklist");
 
+    if (!checklistPage) return;
+
     const extraCard = document.createElement("div");
 
     extraCard.className = "section-card";
@@ -316,6 +320,192 @@ function addExtraTask() {
     saveData("extraTasks", extraTasks);
 
     renderExtraTasks();
+
+}
+// ========================================
+
+function loadExtraTasks() {
+
+    const saved = loadData("extraTasks");
+
+    if (saved) {
+
+        extraTasks = saved;
+
+    }
+
+    renderExtraTasks();
+
+}
+
+// ========================================
+
+function renderExtraTasks() {
+
+    const container = document.getElementById("extraTasksContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    extraTasks.forEach(function(task, index){
+
+        const row = document.createElement("div");
+
+        row.className = "extra-task-row";
+
+        row.style.marginBottom = "10px";
+
+        row.innerHTML = `
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    ${task.completed ? "checked" : ""}
+                >
+
+                ${task.task}
+
+            </label>
+
+            <button
+                onclick="deleteExtraTask(${index})"
+                style="margin-left:20px;"
+            >
+
+                Delete
+
+            </button>
+
+        `;
+
+        const checkbox = row.querySelector("input");
+
+        checkbox.addEventListener("change", function(){
+
+            extraTasks[index].completed = checkbox.checked;
+
+            saveData("extraTasks", extraTasks);
+
+        });
+
+        container.appendChild(row);
+
+    });
+
+}
+
+// ========================================
+
+function deleteExtraTask(index){
+
+    extraTasks.splice(index,1);
+
+    saveData("extraTasks",extraTasks);
+
+    renderExtraTasks();
+
+}
+// ========================================
+// DAILY CHECKLIST ACTION BUTTONS
+// ========================================
+
+
+function addChecklistButtons() {
+
+    const checklist = document.getElementById("checklist");
+
+    if (!checklist) return;
+
+    // Prevent duplicates
+    if (document.getElementById("checklistButtons")) return;
+
+    const controls = document.createElement("div");
+
+    controls.id = "checklistButtons";
+
+    controls.style.marginTop = "25px";
+
+    controls.innerHTML = `
+
+        <button id="saveChecklistBtn">
+            💾 Save Checklist
+        </button>
+
+        <button id="printChecklistBtn">
+            🖨 Print
+        </button>
+
+        <button id="pdfChecklistBtn">
+            📄 Generate PDF
+        </button>
+
+    `;
+
+    checklist.appendChild(controls);
+
+    document
+        .getElementById("saveChecklistBtn")
+        .addEventListener("click", saveChecklistReport);
+
+    document
+        .getElementById("printChecklistBtn")
+        .addEventListener("click", function(){
+
+            window.print();
+
+        });
+
+    document
+        .getElementById("pdfChecklistBtn")
+        .addEventListener("click", generateChecklistPDF);
+
+}
+// ========================================
+// SAVE DAILY REPORT
+// ========================================
+
+function saveChecklistReport(){
+
+    const today = new Date().toLocaleDateString();
+
+    const report = {
+
+        date: today,
+
+        checklist: loadData("dailyChecklist"),
+
+        extraTasks: extraTasks
+
+    };
+
+    let history = loadData("savedReports");
+
+    if(!history){
+
+        history = [];
+
+    }
+
+    history.push(report);
+
+    saveData("savedReports", history);
+
+    alert("Daily report saved successfully.");
+
+}
+// ========================================
+// PDF PLACEHOLDER
+// ========================================
+
+function generateChecklistPDF(){
+
+    alert(
+
+        "PDF generation will be connected in the next step."
+
+    );
 
 }
 
