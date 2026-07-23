@@ -144,7 +144,13 @@ checklistPage.appendChild(afternoonCard);
 
 }
 
-document.addEventListener("DOMContentLoaded", buildChecklist);
+document.addEventListener("DOMContentLoaded", function () {
+
+    buildChecklist();
+
+    initialiseChecklist();
+
+});
 // ========================================
 // CHECKLIST EVENTS
 // ========================================
