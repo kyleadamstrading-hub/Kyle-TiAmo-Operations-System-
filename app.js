@@ -182,19 +182,6 @@ function showMessage(message) {
 
 
 // ========================================
-// START CHECKLIST
-// ========================================
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    setTimeout(function () {
-
-        initialiseChecklist();
-
-    }, 100);
-
-});
-// ========================================
 // EXTRA TASKS
 // ========================================
 
