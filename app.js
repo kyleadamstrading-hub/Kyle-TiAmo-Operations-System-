@@ -3,18 +3,15 @@
 // app.js
 // ========================================
 
-// ---------- Global Variables ----------
-
-let completedTasks = 0;
-let totalTasks = 0;
-
 document.addEventListener("DOMContentLoaded", function () {
 
     initialiseApp();
 
 });
 
-// ---------- Initialise ----------
+// ========================================
+// INITIALISE APP
+// ========================================
 
 function initialiseApp() {
 
@@ -30,7 +27,9 @@ function initialiseApp() {
 
 }
 
-// ---------- Display Current Date ----------
+// ========================================
+// DISPLAY CURRENT DATE
+// ========================================
 
 function displayCurrentDate() {
 
@@ -51,7 +50,9 @@ function displayCurrentDate() {
 
 }
 
-// ---------- Sidebar Navigation ----------
+// ========================================
+// SIDEBAR NAVIGATION
+// ========================================
 
 function setupNavigation() {
 
@@ -101,10 +102,8 @@ function showPage(pageName) {
 
 }
 
-// Make function available to HTML buttons
-
+// Make function available globally
 window.showPage = showPage;
-
 
 // ========================================
 // PROGRESS BAR
@@ -125,7 +124,7 @@ function updateProgress(percent) {
 }
 
 // ========================================
-// LOCAL STORAGE
+// LOCAL STORAGE HELPERS
 // ========================================
 
 function saveData(key, value) {
@@ -179,11 +178,3 @@ function showMessage(message) {
     alert(message);
 
 }
-
-
-
-// ========================================
-
-
-
-
