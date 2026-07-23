@@ -1,104 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spa Ops Manager</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
-    <style>
-        /* Same styles as before + login UI */
-        body { font-family: Arial, sans-serif; margin:0; padding:20px; background:#f4f4f4; }
-        .container { max-width:1200px; margin:auto; background:white; padding:20px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
-        .hidden { display: none; }
-        button { padding:10px 15px; margin:5px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spa Ops Manager</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div id="login-screen">
-            <h1>🌿 Spa Ops Manager</h1>
-            <input type="email" id="email" placeholder="Email" style="width:300px;padding:10px;"><br>
-            <input type="password" id="password" placeholder="Password" style="width:300px;padding:10px;"><br>
-            <button onclick="signUp()">Sign Up</button>
-            <button onclick="login()">Login</button>
-        </div>
 
-        <div id="main-app" class="hidden">
-            <h1>🌿 Spa Ops Manager - <span id="user-email"></span></h1>
-            <button onclick="logout()">Logout</button>
-            <p><strong>Date:</strong> <span id="current-date"></span></p>
+<div class="app">
 
-            <!-- Same nav and sections as before (Daily, Inspection, History) -->
-            <!-- I kept it compact here - full code available on request -->
-        </div>
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>🌿 Spa Ops</h2>
+      <p>Operations Manager</p>
     </div>
 
-    <script>
-        // === PASTE YOUR FIREBASE CONFIG HERE ===
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef123456"
-        };
+    <nav>
+      <button class="nav-btn active" data-page="dashboard">🏠 Dashboard</button>
+      <button class="nav-btn" data-page="checklist">✅ Daily Checklist</button>
+      <button class="nav-btn" data-page="inspection">🛏 Room Inspection</button>
+      <button class="nav-btn" data-page="consumables">📦 Consumables</button>
+      <button class="nav-btn" data-page="notes">📝 Notes</button>
+      <button class="nav-btn" data-page="reports">📁 Saved Reports</button>
+      <button class="nav-btn" data-page="settings">⚙ Settings</button>
+    </nav>
+  </aside>
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const auth = firebase.auth();
+  <main class="content">
 
-        let currentUser = null;
+    <header class="topbar">
+      <div>
+        <h1>Spa Operations Manager</h1>
+        <p id="todayDate"></p>
+      </div>
 
-        // Auth functions
-        function signUp() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            auth.createUserWithEmailAndPassword(email, password)
-                .then(() => { alert("Account created! Please login."); })
-                .catch(e => alert(e.message));
-        }
+      <div class="progress-card">
+        <h3>Today's Progress</h3>
+        <div class="progress">
+          <div id="progressBar"></div>
+        </div>
+        <span id="progressText">0%</span>
+      </div>
+    </header>
 
-        function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            auth.signInWithEmailAndPassword(email, password)
-                .then(userCredential => {
-                    currentUser = userCredential.user;
-                    document.getElementById('login-screen').classList.add('hidden');
-                    document.getElementById('main-app').classList.remove('hidden');
-                    document.getElementById('user-email').textContent = currentUser.email;
-                    loadUserData();
-                })
-                .catch(e => alert(e.message));
-        }
+    <section id="dashboard" class="page active-page">
 
-        function logout() {
-            auth.signOut();
-            location.reload();
-        }
+      <div class="cards">
 
-        // Load/Save data from Firestore
-        async function loadUserData() {
-            // Load daily tasks, inspections, history...
-            console.log("Loading synced data...");
-        }
+        <div class="card">
+          <h3>Daily Checklist</h3>
+          <p>Morning & Afternoon Tasks</p>
+          <button onclick="showPage('checklist')">Open</button>
+        </div>
 
-        // Auth state listener
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                currentUser = user;
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('hidden');
-                document.getElementById('user-email').textContent = user.email;
-            }
-        });
-    </script>
+        <div class="card">
+          <h3>Room Inspection</h3>
+          <p>Inspect Standard & Executive Suites</p>
+          <button onclick="showPage('inspection')">Open</button>
+        </div>
+
+        <div class="card">
+          <h3>Consumables</h3>
+          <p>Monitor Stock Levels</p>
+          <button onclick="showPage('consumables')">Open</button>
+        </div>
+
+        <div class="card">
+          <h3>Notes</h3>
+          <p>Quick Manager Notes</p>
+          <button onclick="showPage('notes')">Open</button>
+        </div>
+
+        <div class="card">
+          <h3>Reports</h3>
+          <p>Previous PDFs & Records</p>
+          <button onclick="showPage('reports')">Open</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="checklist" class="page">
+      <h2>Daily Checklist</h2>
+      <p>This module will be built next.</p>
+    </section>
+
+    <section id="inspection" class="page">
+      <h2>Room Inspection</h2>
+      <button id="startInspection">Start Inspection</button>
+
+      <div id="inspectionChoice" style="display:none;">
+        <button>Standard Massage Suites</button>
+        <button>Executive Massage Suites</button>
+      </div>
+    </section>
+
+    <section id="consumables" class="page">
+      <h2>Consumables</h2>
+      <p>Coming in Phase 2.</p>
+    </section>
+
+    <section id="notes" class="page">
+      <h2>Notes</h2>
+      <textarea rows="12" placeholder="Write notes here..."></textarea>
+    </section>
+
+    <section id="reports" class="page">
+      <h2>Saved Reports</h2>
+      <p>Reports will appear here.</p>
+    </section>
+
+    <section id="settings" class="page">
+      <h2>Settings</h2>
+      <p>Firebase connection will be configured later.</p>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="pdf.js"></script>
+<script src="firebase.js"></script>
+<script src="app.js"></script>
+
 </body>
 </html>
