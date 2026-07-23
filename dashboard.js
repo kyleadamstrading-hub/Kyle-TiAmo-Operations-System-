@@ -2,9 +2,11 @@
 // DASHBOARD MODULE
 // ========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     initialiseDashboard();
+
+    createDashboardStats();
 
 });
 
@@ -304,7 +306,7 @@ function updateDashboardAlerts() {
 
     alertBox.innerHTML = "";
 
-    alerts.forEach(alert => {
+        alerts.forEach(alert => {
 
         const p = document.createElement("p");
 
@@ -314,7 +316,6 @@ function updateDashboardAlerts() {
 
     });
 
-}
 }
 // ========================================
 // AUTO REFRESH
@@ -372,5 +373,77 @@ function updateSystemStatus() {
     }
 
     status.innerHTML = "🟢 Operational";
+
+}
+// ========================================
+// DASHBOARD STATISTICS
+// ========================================
+
+function createDashboardStats() {
+
+    const dashboard = document.getElementById("dashboard");
+
+    if (!dashboard) return;
+
+    // Prevent duplicates
+    if (document.getElementById("dashboardStats")) return;
+
+    const stats = document.createElement("div");
+
+    stats.className = "section-card";
+
+    stats.id = "dashboardStats";
+
+    stats.innerHTML = `
+
+        <h2>Today's Summary</h2>
+
+        <br>
+
+        <div id="taskStats">
+
+            <p><strong>Morning Tasks:</strong> <span id="morningCount">0</span></p>
+
+            <p><strong>Afternoon Tasks:</strong> <span id="afternoonCount">0</span></p>
+
+            <p><strong>Additional Tasks:</strong> <span id="extraCount">0</span></p>
+
+            <p><strong>Total Tasks:</strong> <span id="totalCount">0</span></p>
+
+        </div>
+
+    `;
+
+    dashboard.prepend(stats);
+
+    updateDashboardStats();
+
+}
+// ========================================
+// UPDATE DASHBOARD
+// ========================================
+
+function updateDashboardStats() {
+
+    const morningCount = document.getElementById("morningCount");
+    const afternoonCount = document.getElementById("afternoonCount");
+    const extraCount = document.getElementById("extraCount");
+    const totalCount = document.getElementById("totalCount");
+
+    if (!morningCount || !afternoonCount || !extraCount || !totalCount) return;
+
+    const morning = document.querySelectorAll(".dailyTask").length;
+
+    const extra = extraTasks.length;
+
+    const total = morning + extra;
+
+    morningCount.innerHTML = 10;
+
+    afternoonCount.innerHTML = 5;
+
+    extraCount.innerHTML = extra;
+
+    totalCount.innerHTML = total;
 
 }
