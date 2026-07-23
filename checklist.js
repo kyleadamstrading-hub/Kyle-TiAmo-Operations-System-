@@ -207,3 +207,37 @@ function saveChecklist() {
     saveData("dailyChecklist", data);
 
 }
+// ========================================
+// CALCULATE PROGRESS
+// ========================================
+
+function calculateChecklistProgress() {
+
+    const checkboxes = document.querySelectorAll(".dailyTask");
+
+    let completed = 0;
+
+    checkboxes.forEach(box => {
+
+        if (box.checked) {
+
+            completed++;
+
+        }
+
+    });
+
+    const total = checkboxes.length;
+
+    let percent = 0;
+
+    if (total > 0) {
+
+        percent = Math.round((completed / total) * 100);
+
+    }
+
+    updateProgress(percent);
+
+}
+
