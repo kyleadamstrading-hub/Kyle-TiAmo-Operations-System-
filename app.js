@@ -184,29 +184,6 @@ function showMessage(message) {
 
 // ========================================
 
-function addExtraTask() {
-
-    const input = document.getElementById("newTaskInput");
-
-    const text = input.value.trim();
-
-    if (text === "") return;
-
-    extraTasks.push({
-
-        task: text,
-
-        completed: false
-
-    });
-
-    input.value = "";
-
-    saveData("extraTasks", extraTasks);
-
-    renderExtraTasks();
-
-}
 
 // ========================================
 
