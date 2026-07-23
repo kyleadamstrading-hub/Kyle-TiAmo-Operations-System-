@@ -28,7 +28,11 @@ let currentRoom = "";
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    setTimeout(buildInspectionMenu,500);
+    setupInspectionButton();
+
+    buildInspectionMenu();
+
+    showLastInspection();
 
 });
 
@@ -72,23 +76,25 @@ function buildInspectionMenu(){
 
 function buildRoomSelection(roomList){
 
-    const area=document.getElementById("inspectionChoice");
+    const area = document.getElementById("inspectionChoice");
 
-    area.innerHTML="<h3>Select Room</h3>";
+    if (!area) return;
+
+    area.innerHTML = "<h3>Select Room</h3>";
 
     roomList.forEach(function(room){
 
-        const button=document.createElement("button");
+        const button = document.createElement("button");
 
-        button.style.display="block";
-        button.style.marginBottom="10px";
-        button.style.width="100%";
+        button.style.display = "block";
+        button.style.marginBottom = "10px";
+        button.style.width = "100%";
 
-        button.innerHTML=room;
+        button.innerHTML = room;
 
-        button.addEventListener("click",function(){
+        button.addEventListener("click", function(){
 
-            currentRoom=room;
+            currentRoom = room;
 
             startRoomInspection(room);
 
@@ -105,50 +111,47 @@ function buildRoomSelection(roomList){
 
 function startRoomInspection(room){
 
-    const area=document.getElementById("inspectionChoice");
+    const area = document.getElementById("inspectionChoice");
 
-    area.innerHTML="";
+    if (!area) return;
 
-    const title=document.createElement("h2");
+    area.innerHTML = "";
 
-    title.innerHTML=room;
+    const title = document.createElement("h2");
+
+    title.innerHTML = room;
 
     area.appendChild(title);
 
-   const checklist = document.createElement("div");
+    const checklist = document.createElement("div");
 
-checklist.className = "section-card";
+    checklist.className = "section-card";
 
-inspectionItems.forEach(function(item){
+    inspectionItems.forEach(function(item){
 
-    const row = document.createElement("div");
+        const row = document.createElement("div");
 
-    row.style.marginBottom = "12px";
+        row.style.marginBottom = "12px";
 
-    row.innerHTML = `
+        row.innerHTML = `
+            <label>
+                <input
+                    type="checkbox"
+                    class="inspectionCheck"
+                >
+                ${item}
+            </label>
+        `;
 
-        <label>
+        checklist.appendChild(row);
 
-            <input
-                type="checkbox"
-                class="inspectionCheck"
-            >
+    });
 
-            ${item}
+    addInspectionComments(checklist);
 
-        </label>
+    area.appendChild(checklist);
 
-    `;
-
-    checklist.appendChild(row);
-
-});
-
-addInspectionComments(checklist);
-
-area.appendChild(checklist);
-
-createInspectionButtons();
+    createInspectionButtons();
 
 }
 // ========================================
@@ -157,41 +160,36 @@ createInspectionButtons();
 
 function createInspectionButtons(){
 
-    const area=document.getElementById("inspectionChoice");
+    const area = document.getElementById("inspectionChoice");
 
-    const save=document.createElement("button");
+    if (!area) return;
 
-    save.innerHTML="💾 Save Inspection";
+    const save = document.createElement("button");
+    save.innerHTML = "💾 Save Inspection";
 
-    const report=document.createElement("button");
+    const report = document.createElement("button");
+    report.innerHTML = "📱 Generate WhatsApp Report";
 
-    report.innerHTML="📱 Generate WhatsApp Report";
-
-    const pdf=document.createElement("button");
-
-    pdf.innerHTML="📄 Generate PDF";
+    const pdf = document.createElement("button");
+    pdf.innerHTML = "📄 Generate PDF";
 
     area.appendChild(save);
     area.appendChild(report);
     area.appendChild(pdf);
 
-  save.onclick=function(){
+    save.addEventListener("click", saveRoomInspection);
 
-    saveRoomInspection();
-
-};
-
-    report.onclick=function(){
+    report.addEventListener("click", function(){
 
         alert("WhatsApp Report Coming Next");
 
-    };
+    });
 
-    pdf.onclick=function(){
+    pdf.addEventListener("click", function(){
 
         alert("PDF Generation Coming Next");
 
-    };
+    });
 
 }
 // ========================================
@@ -299,25 +297,28 @@ function saveRoomInspection(){
 // LAST INSPECTION
 // ========================================
 
-document.addEventListener("DOMContentLoaded", function(){
-
-    setTimeout(showLastInspection,700);
-
-});
-
 function showLastInspection(){
 
     const inspections = loadData("roomInspections");
 
-    if(!inspections) return;
+    if (!inspections) return;
 
-    if(inspections.length===0) return;
+    if (inspections.length === 0) return;
 
-    const latest = inspections[inspections.length-1];
+    const latest = inspections[inspections.length - 1];
 
     const dashboard = document.getElementById("dashboard");
 
-    if(!dashboard) return;
+    if (!dashboard) return;
+
+    // Remove existing card if it already exists
+    const existingCard = document.getElementById("latestInspectionCard");
+
+    if (existingCard) {
+
+        existingCard.remove();
+
+    }
 
     const card = document.createElement("div");
 
@@ -340,5 +341,33 @@ function showLastInspection(){
     `;
 
     dashboard.prepend(card);
+
+}
+// ========================================
+// ROOM INSPECTION
+// ========================================
+
+function setupInspectionButton() {
+
+    const startButton = document.getElementById("startInspection");
+    const options = document.getElementById("inspectionChoice");
+
+    if (!startButton || !options) return;
+
+    startButton.addEventListener("click", function () {
+
+        if (options.style.display === "none" || options.style.display === "") {
+
+            options.style.display = "block";
+            startButton.textContent = "Hide Inspection Options";
+
+        } else {
+
+            options.style.display = "none";
+            startButton.textContent = "Start Inspection";
+
+        }
+
+    });
 
 }
