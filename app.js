@@ -106,34 +106,7 @@ function showPage(pageName) {
 // Make function available to HTML buttons
 
 window.showPage = showPage;
-// ========================================
-// ROOM INSPECTION
-// ========================================
 
-function setupInspectionButton() {
-
-    const startButton = document.getElementById("startInspection");
-    const options = document.getElementById("inspectionChoice");
-
-    if (!startButton || !options) return;
-
-    startButton.addEventListener("click", function () {
-
-        if (options.style.display === "none" || options.style.display === "") {
-
-            options.style.display = "block";
-            startButton.textContent = "Hide Inspection Options";
-
-        } else {
-
-            options.style.display = "none";
-            startButton.textContent = "Start Inspection";
-
-        }
-
-    });
-
-}
 
 // ========================================
 // PROGRESS BAR
