@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -42,6 +43,10 @@
 
             <button class="nav-btn" data-page="inspection">
                 🛏 Room Inspection
+            </button>
+
+            <button class="nav-btn" data-page="staff">
+                👩‍💼 Staff
             </button>
 
             <button class="nav-btn" data-page="consumables">
@@ -98,7 +103,6 @@
 
         <!-- ========================= -->
         <!-- DASHBOARD -->
-        <!-- Built by dashboard.js -->
         <!-- ========================= -->
 
         <section id="dashboard" class="page active-page">
@@ -122,6 +126,104 @@
         <section id="inspection" class="page">
 
             <h2>Room Inspection</h2>
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- STAFF MANAGEMENT -->
+        <!-- ========================= -->
+
+        <section id="staff" class="page">
+
+            <div class="section-card">
+
+                <h2>👩‍💼 Staff Management</h2>
+
+                <p>Manage all wellness consultants and staff members.</p>
+
+                <br>
+
+                <div class="staff-toolbar">
+
+                    <input
+                        type="text"
+                        id="staffSearch"
+                        placeholder="Search staff..."
+                    >
+
+                    <button id="addStaffBtn">
+
+                        + Add Staff Member
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="section-card">
+
+                <h3>Add / Edit Staff Member</h3>
+
+                <div class="staff-form">
+
+                    <input
+                        type="text"
+                        id="staffName"
+                        placeholder="Full Name"
+                    >
+
+                    <input
+                        type="text"
+                        id="staffPosition"
+                        placeholder="Position"
+                    >
+
+                    <input
+                        type="text"
+                        id="staffPhone"
+                        placeholder="Phone Number"
+                    >
+
+                    <input
+                        type="email"
+                        id="staffEmail"
+                        placeholder="Email Address"
+                    >
+
+                    <select id="staffStatus">
+
+                        <option value="Active">Active</option>
+
+                        <option value="Off Duty">Off Duty</option>
+
+                        <option value="On Leave">On Leave</option>
+
+                        <option value="Suspended">Suspended</option>
+
+                    </select>
+
+                    <button id="saveStaffBtn">
+
+                        Save Staff Member
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="section-card">
+
+                <h3>Staff Members</h3>
+
+                <div id="staffList">
+
+                    <p>No staff members have been added yet.</p>
+
+                </div>
+
+            </div>
 
         </section>
 
@@ -180,24 +282,16 @@
 <!-- ========================= -->
 
 <script src="app.js"></script>
-
 <script src="dashboard.js"></script>
-
 <script src="checklist.js"></script>
-
 <script src="inspection.js"></script>
-
-<script src="consumables.js"></script>
-
-<script src="reports.js"></script>
-
 <script src="staff.js"></script>
-
+<script src="consumables.js"></script>
+<script src="reports.js"></script>
 <script src="settings.js"></script>
-
 <script src="firebase.js"></script>
-
 <script src="pdf.js"></script>
 
 </body>
+
 </html>
